@@ -14,7 +14,7 @@
 #include "gl/glut.h"   // - An interface and windows 
                       //   management library
 #include "visuals.h"   // Header file for our OpenGL functions
-
+#include <ctime>
 
 ////////////////// State Variables ////////////////////////
 
@@ -53,6 +53,7 @@ int main(int argc, char* argv[])
   glutReshapeFunc(Resize);
   glutKeyboardFunc(Keyboard);
   //Enter main event handling loop
+  Timer(0);
   glutMainLoop();
   return 0;	
 }  

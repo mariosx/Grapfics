@@ -14,3 +14,4 @@ void Resize(int w, int h);
 void Setup();
 // Set up the OpenGL state machine and create a light source
 void Keyboard(unsigned char key,int x, int y);
+void Timer(int value);

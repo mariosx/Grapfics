@@ -6,22 +6,32 @@
 #include <math.h>
 #include <iostream>
 #include <fstream>
+#include <ctime>
 
-static float tx = 1.0;
+static float tx = 0.0;
+
+#define PI 3.14159265
 
 void Keyboard(unsigned char key,int x,int y)
 {
 	
 	switch(key)
 	{
-	case 'a' : tx-=0.5f;
+	case 'a' : tx+=3.0f;
 		break;
-	case 'd' : tx+=0.5f;
+	case 'd' : tx+=3.0f;
 		break;
 	default : break;
 	}
 	glutPostRedisplay();
 
+}
+
+void Timer(int value){
+	tx+=50.0f;
+    glutPostRedisplay();
+    // 100 milliseconds
+    glutTimerFunc(100, Timer, 0);
 }
 
 void Render()
@@ -32,14 +42,21 @@ void Render()
   glMatrixMode(GL_MODELVIEW); 
   glLoadIdentity();
 
-  glColor3f(1.0, 0.5, 0.2);							   // Set drawing colour = orange
+  glColor4f(1,1,0,0.5);
+  glEnable( GL_BLEND );
+  glBlendFunc( GL_SRC_ALPHA , GL_ONE_MINUS_SRC_ALPHA );							   // Set drawing colour = orange
   //glutSolidTeapot( 20.0 );							   // Draw a built-in primitive
   //glutWireTeapot(20.0);
-  
-  glutSolidSphere(10.0*tx,30,10);
-  glPushMatrix();
-  glScalef(10.0*tx,10.0*tx,10.0*tx);
-  glPopMatrix();
+  glutSolidSphere(20.0+2.0*cos(tx*PI/180),20.0 + 2.0*cos(tx*PI/180),20.0 + 2.0*cos(tx*PI/180));
+  glColor4f(1.0, 0.5, 0.2,1);
+  glEnable( GL_BLEND );
+  glBlendFunc( GL_SRC_ALPHA , GL_ONE_MINUS_SRC_ALPHA );
+  //glTranslated(0.0,0.0,-20.0);
+  glutSolidSphere(17.0,17.0,17.0);
+  //glPushMatrix();
+  //time(&timer);
+  //glScalef(10.0+cos(timer*PI/180),10.0 + cos(timer*PI/180),10.0 + cos(timer*PI/180));
+  //glPopMatrix();
   glutSwapBuffers();             // All drawing commands applied to the 
                                  // hidden buffer, so now, bring forward
                                  // the hidden buffer and hide the visible one
